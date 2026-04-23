@@ -1,13 +1,164 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChillDino - Thông báo Chuyển đổi Hệ thống</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+        }
 
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .blur-bg {
+            filter: blur(100px);
+        }
+        
+        .transition-all {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes ping-slow {
+            0% { transform: scale(1); opacity: 0.2; }
+            75%, 100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .animate-ping-slow {
+            animation: ping-slow 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-8 overflow-x-hidden relative">
+    
+    <!-- Hiệu ứng nền - Blurs -->
+    <div class="fixed -top-24 -left-24 w-96 h-96 rounded-full blur-bg opacity-10 pointer-events-none" style="background-color: #ff7c00;"></div>
+    <div class="fixed -bottom-24 -right-24 w-96 h-96 rounded-full blur-bg opacity-10 pointer-events-none" style="background-color: #0a6962;"></div>
+
+    <div id="card" class="relative z-10 max-w-2xl w-full bg-white rounded-[40px] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] border border-slate-100 overflow-hidden transition-all hover:shadow-[0_48px_80px_-24px_rgba(0,0,0,0.12)]">
+        <!-- Thanh trang trí trên cùng -->
+        <div class="h-2 w-full flex">
+            <div class="h-full flex-1" style="background-color: #ff7c00;"></div>
+            <div class="h-full flex-1" style="background-color: #0a6962;"></div>
+        </div>
+
+        <div class="px-8 py-12 md:px-12 md:py-16 text-center">
+            <!-- Khu vực Icon -->
+            <div class="mb-10 flex justify-center">
+                <div class="relative">
+                    <div class="absolute -inset-4 rounded-full animate-ping-slow" style="background-color: #ff7c00;"></div>
+                    <div class="relative p-8 rounded-full flex items-center justify-center" style="background-color: #fff3e6;">
+                        <i data-lucide="graduation-cap" class="w-14 h-14" style="color: #ff7c00;"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nội dung thông báo -->
+            <h1 class="text-3xl md:text-3xl font-bold mb-6 text-slate-900 tracking-tight leading-tight">
+                Thông báo Chuyển đổi Hệ thống
+            </h1>
+            
+            <div class="space-y-6 mb-12 text-slate-600 text-lg leading-relaxed">
+                <p>
+                    Toàn bộ hệ thống <span class="font-semibold text-slate-900 underline decoration-slate-200 underline-offset-4">app.htdclass.edu.vn</span> đã được chính thức chuyển sang địa chỉ mới:
+                </p>
+                
+                <!-- Khung URL -->
+                <div class="flex justify-center">
+                    <a 
+                        href="https://chilldino.vn"
+                        target="_top"
+                        rel="noopener noreferrer"
+                        class="inline-block p-6 rounded-3xl border-2 border-dashed transition-all hover:scale-105 active:scale-95 group"
+                        style="color: #0a6962; border-color: #0a6962; background-color: #e6f0ef; text-decoration: none;"
+                    >
+                        <span class="text-3xl md:text-4xl font-mono font-black tracking-tighter flex items-center gap-3">
+                            chilldino.vn
+                            <i data-lucide="external-link" class="w-6 h-6 opacity-40 group-hover:opacity-100 transition-opacity"></i>
+                        </span>
+                    </a>
+                </div>
+
+                <p class="mt-4 italic text-slate-500 text-base">
+                    Hãy truy cập và tiếp tục học tập tại đây.
+                </p>
+            </div>
+
+            <!-- Nút bấm điều hướng chính -->
+            <button
+                onclick="handleRedirect()"
+                class="group relative inline-flex items-center gap-4 px-12 py-5 rounded-2xl font-bold text-white shadow-xl transition-all transform hover:scale-105 active:scale-95 cursor-pointer"
+                style="background-color: #0a6962;"
+            >
+                <span class="text-xl">Tiếp tục học tập ngay</span>
+                <i data-lucide="arrow-right" class="w-6 h-6 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+
+            <!-- Thông tin chân trang -->
+            <div class="mt-16 pt-8 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-slate-400 font-medium">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="info" class="w-[18px] h-[18px]"></i>
+                    <span>Hệ thống cũ sẽ sớm ngừng hoạt động</span>
+                </div>
+                
+                <div 
+                    id="countdown-badge"
+                    class="flex items-center gap-2 px-4 py-2 rounded-full transition-colors"
+                    style="background-color: #fff3e6; color: #ff7c00;"
+                >
+                    <i data-lucide="clock" class="w-[18px] h-[18px]"></i>
+                    <span id="countdown-text">Tự động chuyển hướng sau 1:00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Khởi tạo Lucide icons
+        lucide.createIcons();
+
+        let countdown = 60;
+        const targetUrl = "https://chilldino.vn";
+        const countdownText = document.getElementById('countdown-text');
+        const countdownBadge = document.getElementById('countdown-badge');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function updateCountdown() {
+            countdownText.innerText = `Tự động chuyển hướng sau ${formatTime(countdown)}`;
+            
+            if (countdown < 10) {
+                countdownBadge.style.backgroundColor = '#fee2e2';
+                countdownBadge.style.color = '#ef4444';
+            }
+
+            if (countdown <= 0) {
+                window.location.assign(targetUrl);
+            } else {
+                countdown--;
+                setTimeout(updateCountdown, 1000);
+            }
+        }
+
+        function handleRedirect() {
+            window.location.assign(targetUrl);
+        }
+
+        // Bắt đầu đếm ngược
+        updateCountdown();
+    </script>
+</body>
+</html>
